@@ -1,0 +1,14 @@
+body {
+    margin: 0;
+}
+// header settings
+header {
+    background-color: #323232;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.header__band-name {
+    color: white;
+    text-decoration: none;
+}
