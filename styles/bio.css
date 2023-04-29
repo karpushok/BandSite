@@ -1,15 +1,347 @@
+@font-face {
+  font-family: Bold;
+  src: url(/assets/fonts/AvenirNextLTPro-Bold.otf);
+}
+@font-face {
+  font-family: Demi;
+  src: url(/assets/fonts/AvenirNextLTPro-Demi.otf);
+}
+@font-face {
+  font-family: Regular;
+  src: url(/assets/fonts/AvenirNextLTPro-Regular.otf);
+}
+@media screen and (min-width: 768px) {
+  h1 {
+    font-size: 3.75rem;
+    line-height: 4.25rem;
+    font-weight: 700;
+    font-family: "Bold";
+  }
+  h2 {
+    font-size: 2.25rem;
+    line-height: 2.75rem;
+    font-weight: 700;
+    font-family: "Demi";
+  }
+  h3 {
+    font-size: 1.5rem;
+    line-height: 3rem;
+    font-weight: 600;
+    font-family: "Demi";
+  }
+  main p {
+    font-size: 1rem;
+    line-height: 1.375rem;
+    font-weight: 400;
+    font-family: "Regular";
+  }
+  footer p {
+    font-size: 1rem;
+    line-height: 1.25rem;
+    font-weight: 400;
+    font-family: "Regular";
+  }
+  a {
+    font-size: 0.75rem;
+    line-height: 1.25rem;
+    font-weight: 400;
+    font-family: "Regular";
+  }
+}
+@media screen and (max-width: 767px) {
+  h1 {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 700;
+    font-family: "Bold";
+  }
+  h2 {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 700;
+    font-family: "Demi";
+  }
+  h3 {
+    font-size: 0.875rem;
+    line-height: 1.375rem;
+    font-weight: 600;
+    font-family: "Demi";
+  }
+  p {
+    font-size: 0.8125rem;
+    line-height: 1.125rem;
+    font-weight: 400;
+    font-family: "Regular";
+  }
+  a {
+    font-size: 0.8125rem;
+    line-height: 1.25rem;
+    font-weight: 200;
+    font-family: "Regular";
+  }
+}
+/* Set the basic styles for the document */
 body {
+  margin: 0;
+  font-size: 100%;
+}
+
+/* Define mixins for links and border-bottom */
+/* Set the styles for the page header */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  background-color: #323232;
+  padding-top: 0.5rem;
+}
+
+/* Set the styles for links in the page header */
+.page-header__link {
+  text-decoration: none;
+  color: #FFFFFF;
+  margin: 0;
+  font-size: 120%;
+}
+
+/* Set the styles for the header navigation */
+.header-nav {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Set the styles for links in the header navigation */
+.header-nav__link {
+  text-decoration: none;
+  color: #FFFFFF;
+  margin: 0;
+  width: 50%;
+  text-align: center;
+  padding-bottom: 0.7rem;
+  font-size: 120%;
+}
+
+.header-nav__link:hover {
+  font-family: "Demi";
+}
+
+/* Set the styles for links in the header navigation */
+.header-nav__link--active {
+  border-bottom: 4px solid #FFFFFF;
+  font-family: "Demi";
+}
+
+/* Set the styles for the band name link in the page header */
+.page-header__band-name {
+  text-decoration: none;
+  color: #FFFFFF;
   margin: 0;
 }
 
-header {
-  background-color: #323232;
+/* Set the styles for the hero section */
+.hero {
+  background-image: url(/assets/images/hero-bio.jpg);
+  background-size: cover;
+  position: relative;
+  height: 15rem;
   display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
+  align-items: center;
+  padding-left: 1rem;
+  color: #FFFFFF;
 }
 
-.header__band-name {
-  color: white;
+.hero::after {
+  content: " ";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.hero__header {
+  font-size: 200%;
+  font-family: "Demi";
+  z-index: 2;
+}
+
+/* Set the styles for the main section */
+.about {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 1rem;
+}
+
+.about__header {
+  font-family: "Demi";
+}
+
+.about__image {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+.about__main-text {
+  margin-bottom: 1rem;
+}
+
+/* Set the styles for the photo albums section */
+.photo-alboms {
+  margin: 1rem 1rem;
+  background-color: #FAFAFA;
+}
+
+.photo-alboms__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.photo-alboms__item {
+  width: calc((100% - 0rem) / 1);
+  filter: grayscale(70%);
+}
+
+.photo-alboms__item:hover {
+  filter: grayscale(0);
+  transition: all 0.2s;
+}
+
+/* Set the styles for the footer section */
+footer {
+  background-color: #323232;
+  color: #FFFFFF;
+  padding: 1rem;
+}
+
+/* Set the styles for the subheader in the footer */
+.footer__subheader {
+  margin-bottom: 1rem;
+}
+
+/* Set the font family for the header in the footer */
+.footer__header {
+  font-family: "Regular";
+}
+
+/* Set the styles for social buttons in the footer */
+.footer__social-button {
+  width: 2rem;
+  height: 2rem;
+  margin-right: 1rem;
+}
+
+/* Set the styles for paragraphs in the footer */
+.footer__paragraph {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Set the styles for the email link in the footer and use the links mixin */
+.footer__email {
+  margin-top: 0.5rem;
   text-decoration: none;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+/* Set the styles for desktop screens */
+@media screen and (min-width: 768px) {
+  /* Define a mixin for padding */
+  /* Set the styles for the header section */
+  .page-header {
+    flex-direction: row;
+  }
+  .page-header__link {
+    font-size: 50%;
+    margin-left: 10rem;
+    margin-top: 0;
+  }
+  .header-nav {
+    display: flex;
+    justify-content: flex-start;
+  }
+  .header-nav__link {
+    width: -moz-fit-content;
+    width: fit-content;
+    padding-top: 5rem;
+    padding-bottom: 3.5rem;
+    margin-left: 3rem;
+  }
+  /* Set the styles for the band name in the page header */
+  .about__header {
+    margin-left: -5rem;
+  }
+  /* Set the styles for the hero image */
+  .hero {
+    height: 45rem;
+    font-size: 200%;
+    padding-left: 5rem;
+  }
+  /* Set the styles for the photo album items */
+  .photo-alboms__item {
+    width: calc((100% - 6rem) / 3);
+    padding: 0.3rem;
+  }
+  /* Set the styles for the photo album header */
+  .photo-alboms__header {
+    padding-top: 2rem;
+  }
+  /* Set the styles for the photo album section and include the padding mixin */
+  .photo-alboms {
+    padding-left: 10rem;
+    padding-right: 10rem;
+  }
+  /* Set the styles for the about section and include the padding2 mixin */
+  .about {
+    padding-left: 10rem;
+    padding-right: 10rem;
+  }
+  /* Set the styles for the main text in the about section */
+  .about__main-text {
+    display: flex;
+    justify-content: space-between;
+    gap: 3rem;
+  }
+  /* Set the styles for the footer div */
+  .footer > div {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    margin: 1rem 3rem;
+  }
+  .footer > div > div {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin: 1rem 2rem;
+  }
+  .footer__container--social {
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 2rem;
+    align-items: end;
+  }
+  .footer__container--social > div {
+    margin-left: 14vw;
+  }
+  .footer__subheader {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  /* Set the font size for the footer header */
+  .footer__header {
+    font-size: 150%;
+    margin-top: -4rem;
+  }
+  /* Set the margin for the footer address */
+  .footer__address {
+    margin-left: 4rem;
+  }
 }/*# sourceMappingURL=bio.css.map */
