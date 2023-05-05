@@ -1,0 +1,39 @@
+@mixin links {
+  text-decoration: none;
+  color: colors.$primary-white;
+  margin: 0;
+}
+@mixin border-bottom {
+  border-bottom: 4px solid colors.$primary-white;
+}
+
+@mixin input-form {
+  border: 1px solid colors.$secondary-silver;
+  background-color: colors.$secondary-white;
+  border-radius: 4px;
+  font-family: 'Regular';
+}
+
+@mixin body-basic {
+  margin: 0;
+  font-size: 100%;
+}
+
+@mixin padding {
+  padding-left: 10rem;
+  padding-right: 10rem;
+}
+@mixin padding2 {
+  padding-left: 10rem;
+  padding-right: 10rem;
+}
+
+@mixin flex-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+@mixin flex-start {
+  display: flex;
+  justify-content: flex-start;
+}

@@ -141,13 +141,14 @@ body {
 }
 
 .hero {
-  background-image: url(../assets/images/hero-bio.jpg);
+  background-image: url(../assets/images/hero-shows.jpg);
   background-size: cover;
   position: relative;
-  height: 15rem;
+  height: 25rem;
   display: flex;
-  align-items: center;
-  padding-left: 1rem;
+  flex-direction: column;
+  align-items: start;
+  padding: 0 1rem;
   color: #FFFFFF;
 }
 .hero::after {
@@ -160,106 +161,74 @@ body {
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1;
 }
+.hero__container {
+  z-index: 2;
+}
 .hero__header {
   font-size: 200%;
   font-family: "Demi";
+  margin: 2rem 0;
+  line-height: 1.5;
+}
+.hero__paragraph {
+  z-index: 2;
+  font-size: 110%;
+  padding-top: 1rem;
+}
+
+#soundloud-widget {
+  width: 100%;
   z-index: 2;
 }
 
-.about {
+iframe {
+  align-items: center;
+  width: 100%;
+}
+
+.tickets {
   display: flex;
   flex-wrap: wrap;
   margin: 0 1rem;
 }
-.about__header {
+.tickets__header {
   font-family: "Demi";
+  font-size: 200%;
 }
-.about__image {
-  width: 100%;
-  max-width: 100%;
-  height: auto;
+.tickets__container {
+  margin: 0 1rem;
 }
-.about__main-text {
-  margin-bottom: 1rem;
-}
-
-.photo-alboms {
-  margin: 1rem 1rem;
-  background-color: #FAFAFA;
-}
-.photo-alboms__list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-.photo-alboms__item {
-  width: calc((100% - 0rem) / 1);
-  filter: grayscale(70%);
-}
-.photo-alboms:hover {
-  filter: grayscale(0);
-  transition: all 0.2s;
-}
-
-.comments__header {
+.tickets__row {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  margin-top: 1rem;
-  padding: 1rem;
-  font-family: "Demi";
+  width: 100%;
 }
-
-.comment-form, .comment-list {
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-  gap: 1rem;
-  margin: 0 1rem;
+.tickets__row:hover {
+  background-color: #FAFAFA;
 }
-
-.avatar {
-  min-width: 2.25rem;
-  height: 2.25rem;
+.tickets__row:active {
   background-color: #E1E1E1;
-  border-radius: 50%;
 }
-
-form, .avatar__container {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  width: 100%;
+.tickets__separator {
+  border: none;
+  border-top: 2px solid #E1E1E1;
+  margin: 2rem 0;
 }
-
-label {
-  font-family: "Demi";
+.tickets__header-cell {
   color: #AFAFAF;
+  font-family: "Demi";
+  margin-top: 0;
+  font-size: 110%;
 }
-
-textarea {
-  height: 8rem;
-  border: 1px solid #E1E1E1;
-  background-color: #FAFAFA;
-  border-radius: 4px;
+.tickets__cell {
   font-family: "Regular";
+  font-size: 120%;
+  margin-top: 0;
 }
-
-input:focus, textarea:focus {
-  outline: none;
-  border: 1px solid #323232;
-  font-family: "Regular";
+.tickets__cell--bolder {
+  font-family: "Demi";
 }
-
-.comment-form__input {
-  height: 2.25rem;
-  border: 1px solid #E1E1E1;
-  background-color: #FAFAFA;
-  border-radius: 4px;
-  font-family: "Regular";
-}
-
-button[type=submit] {
+.tickets__buy-button {
   color: #FFFFFF;
   background-color: #323232;
   border: none;
@@ -270,28 +239,18 @@ button[type=submit] {
   padding: 1rem 0;
   border-radius: 4px;
 }
-
-.tickets__separator {
-  border: none;
-  border-top: 2px solid #E1E1E1;
-  margin: 2rem 1rem;
+.tickets__buy-button:hover {
+  background-color: #000000;
+  cursor: pointer;
 }
 
-.avatar__container > div {
-  display: flex;
-  justify-content: space-between;
+tr {
+  align-items: start;
+  margin: 1rem 0;
 }
 
-.is--bolded {
-  font-family: "Demi";
-}
-
-.is--grey {
-  color: #AFAFAF;
-}
-
-.comment-list__paragraph {
-  margin: 0;
+.mobile--hidden {
+  display: none;
 }
 
 .footer {
@@ -326,6 +285,7 @@ button[type=submit] {
   margin: 0;
 }
 
+/* Set the styles for desktop screens */
 @media screen and (min-width: 768px) {
   .page-header {
     flex-direction: row;
@@ -346,41 +306,42 @@ button[type=submit] {
     padding-bottom: 3.5rem;
     margin-left: 3rem;
   }
-  .hero {
-    height: 40rem;
-    font-size: 200%;
-    padding-left: 5rem;
-  }
-  .comments__section {
-    width: 35rem;
-    margin: auto;
-  }
-  .comments__header {
-    font-size: 2.5rem;
-    margin-left: 10rem;
-  }
-  .photo-alboms {
-    padding-left: 10rem;
-    padding-right: 10rem;
-  }
-  .photo-alboms__item {
-    width: calc((100% - 6rem) / 3);
-    padding: 0.3rem;
-  }
-  .photo-alboms__header {
-    padding-top: 2rem;
-  }
-  .about {
-    padding-left: 10rem;
-    padding-right: 10rem;
-  }
   .about__header {
     margin-left: -5rem;
   }
-  .about__main-text {
+  .hero {
+    height: 40rem;
+    font-size: 160%;
     display: flex;
     justify-content: space-between;
-    gap: 3rem;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 5rem;
+  }
+  #soundloud-widget {
+    width: 40%;
+  }
+  .desktop-hidden {
+    display: none;
+  }
+  .tickets__row {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 80%;
+    align-items: center;
+    gap: 1rem;
+    margin-left: 20%;
+    margin-bottom: 1rem;
+  }
+  .tickets__row > p {
+    width: 15rem;
+  }
+  .tickets__buy-button {
+    width: 15rem;
+  }
+  .tickets__header {
+    margin-left: 9rem;
   }
   .footer__header {
     text-decoration: none;
@@ -419,4 +380,4 @@ button[type=submit] {
   h3 {
     margin-top: -3rem;
   }
-}/*# sourceMappingURL=bio.css.map */
+}/*# sourceMappingURL=shows.css.map */
