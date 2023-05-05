@@ -1,15 +1,15 @@
 // IMPORT FONTS
 @font-face {
     font-family: Bold;
-    src: url(/assets/fonts/AvenirNextLTPro-Bold.otf);
+    src: url(../assets/fonts/AvenirNextLTPro-Bold.otf);
 }
 @font-face {
     font-family: Demi;
-    src: url(/assets/fonts/AvenirNextLTPro-Demi.otf);
+    src: url(../assets/fonts/AvenirNextLTPro-Demi.otf);
 }
 @font-face {
     font-family: Regular;
-    src: url(/assets/fonts/AvenirNextLTPro-Regular.otf);
+    src: url(../assets/fonts/AvenirNextLTPro-Regular.otf);
 }
 
 
@@ -35,6 +35,13 @@ h2 {
 // subheader
 h3 {
     font-size: 1.5rem;
+    line-height: 3rem;
+    font-weight: 600;
+    font-family: 'Demi';
+}
+
+h4 {
+    font-size: 1.2rem;
     line-height: 3rem;
     font-weight: 600;
     font-family: 'Demi';
@@ -92,6 +99,13 @@ a {
         font-family: 'Demi';
     }
     
+    h4 {
+        font-size: 0.875rem;
+        line-height: 1.375rem;
+        font-weight: 600;
+        font-family: 'Demi';
+    }
+
     // body and footer - copy
     p {
         font-size: 0.8125rem;

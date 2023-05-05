@@ -1,71 +1,50 @@
-@use './partials/colors';
-@import './partials/fonts';
+@use '..//styles/partials/colors';
+@import '../styles/partials/globals';
+@import '../styles/partials/fonts';
 
-/* Set the basic styles for the document */
-body {
-  margin: 0;
-  font-size: 100%;
-}
-/* Define mixins for links and border-bottom */
-@mixin links {
-  text-decoration: none;
-  color: colors.$primary-white;
-  margin: 0;
-}
-@mixin border-bottom {
-  border-bottom: 4px solid colors.$primary-white;
+body {// Set the basic styles for the document
+  @include body-basic;
 }
 
-
-/* Set the styles for the page header */
-.page-header {
-  display: flex;
-  justify-content: space-between;
+.page-header {// Set the styles for the page header
+  @include flex-between;
   align-items: center;
   flex-direction: column;
   background-color: colors.$primary-black;
   padding-top: 0.5rem;
-}
-
-/* Set the styles for links in the page header */
-.page-header__link {
+  
+  &__link {// Set the styles for links in the page header
+    @include links;
+    font-size: 120%;
+  }
+  &__band-name {// Set the styles for the band name link in the page header
   @include links;
-  font-size: 120%;
+}
 }
 
-/* Set the styles for the header navigation */
-.header-nav {
+.header-nav {// Set the styles for the header navigation
   display: flex;
   justify-content: center;
   width: 100%;
+  &__link {// Set the styles for links in the header navigation
+    @include links;
+    width: 50%;
+    text-align: center;
+    padding-bottom: 0.7rem;
+    font-size: 120%;
+    
+    &--active {//Set the styles for links in the header navigation
+    @include border-bottom;
+    font-family: 'Demi';}
+
+    &:hover {
+    font-family: 'Demi';
+    @include border-bottom;}
+  } 
 }
 
-/* Set the styles for links in the header navigation */
-.header-nav__link {
-  @include links;
-  width: 50%;
-  text-align: center;
-  padding-bottom: 0.7rem;
-  font-size: 120%;
-}
-.header-nav__link:hover {
-  font-family: 'Demi';
-}
-
-/* Set the styles for links in the header navigation */
-.header-nav__link--active {
-  @include border-bottom;
-  font-family: 'Demi';
-}
-
-/* Set the styles for the band name link in the page header */
-.page-header__band-name {
-  @include links;
-}
-
-/* Set the styles for the hero section */
-.hero {
-  background-image: url(/assets/images/hero-bio.jpg);
+.hero {// Set the styles for the hero section
+  background-image: url(../assets/images/hero-bio.jpg);
   background-size:cover;
   position: relative;
   height: 15rem;
@@ -73,221 +52,258 @@ body {
   align-items: center;
   padding-left: 1rem;
   color: colors.$primary-white;
-  
-}
-.hero::after {
-  content: " ";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.5);
-  z-index: 1;
-}
+  &::after {
+    content: " ";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1;}
 
-.hero__header {
-  font-size: 200%;
-  font-family: 'Demi';
-  z-index: 2;
+  &__header {
+    font-size: 200%;
+    font-family: 'Demi';
+    z-index: 2;}
 }
 
-/* Set the styles for the main section */
-
-.about {
+.about {// Set the styles for the main section
   display: flex;
   flex-wrap: wrap;
   margin: 0 1rem;
+
+  &__header {
+    font-family: 'Demi';}
+
+  &__image {
+    width: 100%;
+    max-width: 100%;
+    height: auto;}
+
+  &__main-text {
+    margin-bottom: 1rem;}
 }     
-.about__header {
+
+.photo-alboms {// Set the styles for the photo albums section
+  margin: 1rem 1rem;
+  background-color: colors.$secondary-white;
+
+  &__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;}
+
+  &__item {
+  width: calc((100% - 0rem) / 1);
+  filter: grayscale(70%);} //grayscale filter for images
+
+  &:hover { 
+  filter: grayscale(0);
+  transition: all 0.2s;}
+}
+
+.comments__header {// Set the styles for the comments section
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 1rem;
+  padding: 1rem;
   font-family: 'Demi';
 }
 
-.about__image {
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-}
-
-.about__main-text {
-  margin-bottom: 1rem;
-}
-
-/* Set the styles for the photo albums section */
-.photo-alboms {
-  margin: 1rem 1rem;
-  background-color: colors.$secondary-white;
-} 
-.photo-alboms__list {
+.comment-form, .comment-list {
   display: flex;
-  flex-wrap: wrap;
+  justify-content: center;
+  flex-direction: row;
   gap: 1rem;
-}
-.photo-alboms__item {
-  width: calc((100% - 0rem) / 1);
-  filter: grayscale(70%); //grayscale filter for images
+  margin: 0 1rem;
 }
 
-.photo-alboms__item:hover { 
-  filter: grayscale(0);
-  transition: all 0.2s;
+.avatar {
+  min-width: 2.25rem;
+  height: 2.25rem;
+  background-color: colors.$secondary-silver;
+  // background: url(../assets/images/Mohan-muruge.jpg);
+  // object-fit: cover;
+  border-radius: 50%;
 }
 
-/* Set the styles for the footer section */
+form, .avatar__container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
 
-footer {
+label {
+  font-family: 'Demi';
+  color: colors.$primary-silver;
+}
+
+textarea {
+  height: 8rem;
+  @include input-form;
+}
+input:focus, textarea:focus { //active state settings
+  outline: none;
+  border: 1px solid colors.$primary-black;
+  font-family: 'Regular';
+}
+.comment-form__input {
+  height: 2.25rem;
+  @include input-form;
+}
+button[type="submit"] {
+  color: colors.$primary-white;
+  background-color: colors.$primary-black;
+  border: none;
+  text-transform: uppercase;
+  font-family: 'Demi';
+  font-size: 110%;
+  width: 100%;
+  padding: 1rem 0;
+  border-radius: 4px;
+}
+.tickets__separator { //settings for divider
+  border: none;
+  border-top: 2px solid colors.$secondary-silver;
+  margin: 2rem 1rem;
+}
+
+.avatar__container > div {// Set the styles for the default comments section
+  @include flex-between;
+}
+.is--bolded {
+  font-family: 'Demi';
+}
+.is--grey {
+  color: colors.$primary-silver;
+}
+.comment-list__paragraph {
+  margin: 0;
+}
+
+.footer {// Set the styles for the footer section
   background-color: colors.$primary-black;
   color: colors.$primary-white;
   padding: 1rem;
-}
 
-/* Set the styles for the subheader in the footer */
-.footer__subheader {
-  margin-bottom: 1rem;
-}
+  &__subheader {// Set the styles for the subheader in the footer
+   margin-bottom: 1rem;}
 
-/* Set the font family for the header in the footer */
-.footer__header {
-  font-family: 'Regular';
-}
+  &__header {// Set the font family for the header in the footer
+    font-family: 'Regular';
+    @include links;
+    font-size: 150%;}
 
+  &__social-button {// Set the styles for social buttons in the footer
+    width: 2rem;
+    height: 2rem;
+    margin-right: 1rem;}
 
-/* Set the styles for social buttons in the footer */
-.footer__social-button {
-  width: 2rem;
-  height: 2rem;
-  margin-right: 1rem;
-}
-
-/* Set the styles for paragraphs in the footer */
-.footer__paragraph {
-  margin-top: 2rem;
-  display: flex;
-  flex-direction: column;
-} 
-
-/* Set the styles for the email link in the footer and use the links mixin */
-.footer__email {
-  margin-top: 0.5rem;
-  @include links;
-}
-
-
-/* Set the styles for desktop screens */
-
-
-@media screen and (min-width: 768px) {
-  
-   /* Define a mixin for padding */
-  @mixin padding {
-    padding-left: 10rem;
-    padding-right: 10rem;
-  }
-  @mixin padding2 {
-    padding-left: 10rem;
-    padding-right: 10rem;
-  }
-  
-  /* Set the styles for the header section */
-  .page-header {
-    flex-direction: row;
-  }
-
-  .page-header__link {
-    font-size: 50%;
-    margin-left: 10rem;
-    margin-top: 0;
-  }
-  .header-nav {
+  &__paragraph {// Set the styles for paragraphs in the footer
+    margin-top: 2rem;
     display: flex;
-    justify-content: flex-start;
+    flex-direction: column;}
+
+  &__email {// Set the styles for the email link in the footer and use the links mixin
+    margin-top: 0.5rem;
+    @include links;}
+}
+
+@media screen and (min-width: 768px) {// Set the styles for desktop screens
+  
+  .page-header { // Set the styles for the header section
+    flex-direction: row;
+    
+    &__link {
+    font-size: 50%;
+    margin-left: 5rem;
+    margin-top: 0;}
   }
 
-  .header-nav__link {
+  .header-nav {
+    @include flex-start;
+    
+    &__link {
     width: fit-content;
     padding-top: 5rem;
     padding-bottom: 3.5rem;
-    margin-left: 3rem;
+    margin-left: 3rem;}
   }
 
-
-  /* Set the styles for the band name in the page header */  
-  .about__header {
-    margin-left: -5rem;
-  }
-
-
-  /* Set the styles for the hero image */
-  .hero {
-    height: 45rem;
+  .hero {// Set the styles for the hero image
+    height: 40rem;
     font-size: 200%;
     padding-left: 5rem;
   }
-  /* Set the styles for the photo album items */
-  .photo-alboms__item {
-    width: calc((100% - 6rem) / 3); // 
-    padding: 0.3rem;
-  }  
-  
-  /* Set the styles for the photo album header */
-  .photo-alboms__header {
-    padding-top: 2rem;
-  }
 
-  /* Set the styles for the photo album section and include the padding mixin */
-  .photo-alboms {
+  .comments {// Set the styles for the comments section
+    &__section {
+      width: 35rem;
+      margin: auto;}
+
+    &__header {
+      font-size: 2.5rem;
+      margin-left: 10rem;}
+  }
+  
+  .photo-alboms {// Set the styles for the photo album items
     @include padding;
-  }
 
-  /* Set the styles for the about section and include the padding2 mixin */
-  .about {
-    @include padding2;
-  }
+    &__item {
+    width: calc((100% - 6rem) / 3);
+    padding: 0.3rem;}
+
+    &__header {// Set the styles for the photo album header
+    padding-top: 2rem;}
+    }
+
+  .about {// Set the styles for the about section
+  @include padding2;
+  &__header {// Set the styles for the band name in the page header
+      margin-left: -5rem;}
+
+    &__main-text {// Set the styles for the main text in the about section
+      @include flex-between;
+      gap: 3rem;}
+    }
   
-  /* Set the styles for the main text in the about section */
-  .about__main-text {
-    display: flex;
-    justify-content: space-between;
-    gap: 3rem;
-  }
+  .footer {// Set the styles for the footer
+    &__header {
+    @include links;
+    font-size: 120%;}
 
-  /* Set the styles for the footer div */
-  .footer > div {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-    margin: 1rem 3rem;
-  }
-  .footer > div > div{
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    margin: 1rem 2rem;
-  }
+    &__address {
+    margin-left: 5rem;}
 
-  .footer__container--social {
-    display: flex;
-    justify-content: flex-start;
-    margin-left: 2rem;
-    align-items: end;
-  }
-  .footer__container--social  > div {
-    margin-left: 14vw;
-    
-  }
-  .footer__subheader {
+    &__subheader {
     margin-top: 0;
-    margin-bottom: 0;
-  }
-  /* Set the font size for the footer header */
-  .footer__header {
-    font-size: 150%;
-    margin-top: -4rem;
-  }
+    margin-bottom: 0;}
 
-  /* Set the margin for the footer address */
-  .footer__address {
-    margin-left: 4rem;
+    &__container {
+      &--main {
+        @include flex-between;
+      flex-direction: column;
+      margin: 1rem 3rem;}
+
+      &--second {
+        @include flex-between;
+      flex-direction: row;
+      margin: 1rem 2rem;}
+
+      &--social {
+      @include flex-start;
+      margin-left: 2rem;
+      align-items: end;}
+
+      &--social-container {
+      margin-left: 14vw;}
+    }
+    }
+
+  h3 {
+    margin-top: -3rem;
   }
 }
-

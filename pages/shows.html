@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/shows.css">
+    <title>Band Site</title>
+</head>
+<body>
+    <!--The page header contains the site title and navigation links. It is included on every page of the website.-->
+    <header class="page-header">
+        <h1><a href="../index.html" class="page-header__link">BANDSITE</a></h1>
+        <!-- The site title links back to the homepage. -->
+        <div class="header-nav">
+        <!-- The header-line contains navigation links. -->
+            <a href="../index.html" class="header-nav__link">Biography</a>
+            <a href="./shows.html" class="header-nav__link header-nav__link--active">Shows</a> 
+            <!-- ** The link to Shows needs to be changed later. -->
+        </div>
+    </header>
+
+    <main>
+    <!-- main section - hero image  -->
+        <section class="hero">
+            <div class="hero__container">
+               <p class="hero__paragraph">Beautiful Beasts Albom</p>
+               <h2 class="hero__header">Queen of Yellow x <br>For The Stings</h2>
+            </div>
+            <div id="soundloud-widget">
+                <iframe height="140" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/586695621&color=%23151111&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+            </div>
+        </section>
+    <!-- This section contains information about shows & tickets -->
+        <section class="tickets">
+            <h2 class="tickets__header">Shows</h2>
+            <div id="tickets__container" class="tickets__container"></div>
+        <script src="../scripts/build-shows-page.js"></script> 
+        </section>
+    </main>
+
+    <!-- footer section - and links -->
+    <footer class="footer">
+        <div class="footer__container--main">
+            <section class="footer__container footer__container--social">
+                <!-- First container with social media icons -->
+                <h2 class="footer__subheader">Get in Touch</h2>
+                <div class="footer__container--social-container">
+                    <a href="https://www.instagram.com/"><img src="../assets/icons/Icon-instagram.svg" alt="instagram" class="footer__social-button"></a>                
+                    <a href="https://www.facebook.com/"><img src="../assets/icons/Icon-facebook.svg" alt="facebook" class="footer__social-button"></a>
+                    <a href="https://www.twitter.com/"><img src="../assets/icons/Icon-twitter.svg" alt="twitter" class="footer__social-button"></a>
+                </div>
+            </section>
+            <div class="footer__container--second">
+                <div class="footer__container">
+                    <!-- Second container with contact information for Cam Adams -->
+                    <p class="footer__paragraph">Cam Adams<br>The Bees Knees Management</p>
+                    <p class="footer__paragraph">503 Broadway Penthouse, <br>New York, NY 10012, USA</p>
+                    <a href="mailto:info@thebeesknees.com" class="footer__email">info@thebeesknees.com</a>
+                </div>
+                <div class="footer__container">
+                    <!-- Third container with contact information for Pearl Gregg -->
+                    <p class="footer__paragraph">Pearl Gregg<br>Limitless Artist Group</p>
+                    <p class="footer__paragraph">Booking Agent for, <br>US / South America / Japan</p>
+                    <a href="mailto:pearl.gregg@limitlessag.com" class="footer__email">pearl.gregg@limitlessag.com</a>
+                </div>
+                <div class="footer__container">
+                    <!-- Fourth container with contact information for Carson Whyte -->
+                    <p class="footer__paragraph">Carson Whyte<br>ARCH Entertainment</p>
+                    <p class="footer__paragraph">Booking Agent for <br>UK / EU / AU</p>
+                    <a href="mailto:cwhyte@archentertainment.com" class="footer__email">cwhyte@archentertainment.com</a>
+                </div>
+                <!-- BandSite header -->
+                <h3><a href="../index.html" class="footer__header">BANDSITE</a></h3>
+            </div>
+        </div>
+        <!-- Address footer -->
+        <p class="footer__address">Copyright The Bees Knees © 2021 All Rights Reserved</p>
+    </footer>
+</body>
+</html>
