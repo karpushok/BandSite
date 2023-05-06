@@ -109,7 +109,7 @@ iframe {
     background-color: colors.$secondary-white;}
 
     &:active {
-  background-color: colors.$secondary-silver;}
+    background-color: colors.$secondary-silver;}
   }
 
   &__separator { //settings for divider
@@ -126,7 +126,8 @@ iframe {
   &__cell {
   font-family: 'Regular';
   font-size: 120%;
-  margin-top: 0;}
+  margin-top: 0;
+  }
 
   &__cell--bolder {
   font-family: 'Demi';}
@@ -146,6 +147,9 @@ iframe {
   background-color: colors.$secondary-black;
   cursor: pointer;}
   }
+  &__titles--desktop {
+  display: none;
+  }
 }     
 
 tr {
@@ -161,6 +165,7 @@ tr {
   background-color: colors.$primary-black;
   color: colors.$primary-white;
   padding: 1rem;
+  margin-top: 2rem;
 
   &__subheader {// Set the styles for the subheader in the footer
    margin-bottom: 1rem;}
@@ -171,9 +176,7 @@ tr {
     font-size: 150%;}
 
   &__social-button {// Set the styles for social buttons in the footer
-    width: 2rem;
-    height: 2rem;
-    margin-right: 1rem;}
+    @include social-button}
 
   &__paragraph {// Set the styles for paragraphs in the footer
     margin-top: 2rem;
@@ -223,26 +226,49 @@ tr {
   width: 40%;
   }
   .desktop-hidden {// Set the styles for the tickets section
-    display: none;
+  display: none;
   }
   .tickets {
     &__row { 
-    @include flex-between;
     flex-direction: row;
-    width: 80%;
+    width: 46rem;
+    // gap: 1rem;
+    margin: auto;
+    // margin-bottom: 1rem;
     align-items: center;
-    gap: 1rem;
-    margin-left: 20%;
-    margin-bottom: 1rem;}
-
+    }
+    &__cell {
+    margin-top: auto;
+      }
     &__row > p {
-    width: 15rem;}
+    width: 12rem;}
+    margin: auto;
 
     &__buy-button {
-    width: 15rem;}
+    width: 10rem;}
 
     &__header {
-    margin-left: 9rem;}
+    margin-left: 5rem;
+      &-cell {
+        width: 12rem;
+      }}
+
+    &__separator { //settings for divider
+    border: none;
+    border-top: 2px solid colors.$secondary-silver;
+    width: 46rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+    &__titles--desktop {
+    display: flex;
+    justify-content: flex-start;
+    justify-self: flex-end;
+    width: 46rem;
+    margin: auto;
+    }
   }
 
   .footer {// Set the styles for the footer
@@ -264,8 +290,9 @@ tr {
       margin: 1rem 3rem;}
 
       &--second {
-        @include flex-between;
+      @include flex-between;
       flex-direction: row;
+      gap: 1rem;
       margin: 1rem 2rem;}
 
       &--social {
