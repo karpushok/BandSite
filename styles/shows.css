@@ -243,6 +243,9 @@ iframe {
   background-color: #000000;
   cursor: pointer;
 }
+.tickets__titles--desktop {
+  display: none;
+}
 
 tr {
   align-items: start;
@@ -257,6 +260,7 @@ tr {
   background-color: #323232;
   color: #FFFFFF;
   padding: 1rem;
+  margin-top: 2rem;
 }
 .footer__subheader {
   margin-bottom: 1rem;
@@ -324,24 +328,45 @@ tr {
   .desktop-hidden {
     display: none;
   }
+  .tickets {
+    margin: auto;
+  }
   .tickets__row {
-    display: flex;
-    justify-content: space-between;
     flex-direction: row;
-    width: 80%;
+    width: 46rem;
+    margin: auto;
     align-items: center;
-    gap: 1rem;
-    margin-left: 20%;
-    margin-bottom: 1rem;
+  }
+  .tickets__cell {
+    margin-top: auto;
   }
   .tickets__row > p {
-    width: 15rem;
+    width: 12rem;
   }
   .tickets__buy-button {
-    width: 15rem;
+    width: 10rem;
   }
   .tickets__header {
-    margin-left: 9rem;
+    margin-left: 5rem;
+  }
+  .tickets__header-cell {
+    width: 12rem;
+  }
+  .tickets__separator {
+    border: none;
+    border-top: 2px solid #E1E1E1;
+    width: 46rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  .tickets__titles--desktop {
+    display: flex;
+    justify-content: flex-start;
+    justify-self: flex-end;
+    width: 46rem;
+    margin: auto;
   }
   .footer__header {
     text-decoration: none;
@@ -366,6 +391,7 @@ tr {
     display: flex;
     justify-content: space-between;
     flex-direction: row;
+    gap: 1rem;
     margin: 1rem 2rem;
   }
   .footer__container--social {

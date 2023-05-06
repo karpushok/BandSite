@@ -38,8 +38,7 @@ renderShows(showsData);
 // Use JavaScript to dynamically create the HTML elements for each show and add them to the DOM
 function renderShows(showsData) {
   // Create a div element to contain all the shows' data
-  const showsList = document.createElement('div');
-  showsList.classList.add('tickets__container');
+  showsList = document.querySelector('.tickets__container');
 
   // Iterate over each show's data and create HTML elements for each
   showsData.forEach(show => {
@@ -89,14 +88,18 @@ function renderShows(showsData) {
     buyButton.textContent = 'Buy Tickets';
     showElement.appendChild(buyButton);
 
+    showsList.appendChild(showElement);
+    showElement.addEventListener('click', (event) => { //add background-color to the current row
+      document.querySelectorAll('.tickets__row').forEach(row => {
+        row.style.backgroundColor = 'white';
+      }) 
+      event.currentTarget.style.backgroundColor = '#E1E1E1';
+    })
+
     // Create a divider line element
     const dividerLine = document.createElement('hr');
     dividerLine.classList.add('tickets__separator');
-    showElement.appendChild(dividerLine);
-
-
-
-    showsList.appendChild(showElement);
+    showsList.appendChild(dividerLine);
   });
 
   document.body.appendChild(showsList);

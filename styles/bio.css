@@ -224,6 +224,10 @@ body {
   background-color: #E1E1E1;
   border-radius: 50%;
 }
+.avatar__main {
+  background: url(../assets/images/Mohan-muruge.jpg);
+  background-size: cover;
+}
 
 form, .avatar__container {
   display: flex;

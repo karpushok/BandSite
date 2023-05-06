@@ -64,12 +64,10 @@ function displayComment(comment) {
   commentContainer.textContent = commentBody;
   avatarContainer.appendChild(commentContainer);
   
-  // commentSection.insertBefore(divCommentList, commentsDefault);
   commentsDefault.appendChild(divCommentList);
   
   const ticketsSeparator = document.createElement('hr');
   ticketsSeparator.classList.add('tickets__separator');
-  // commentSection.insertBefore(ticketsSeparator, commentsDefault);
   commentsDefault.appendChild(ticketsSeparator);
 }
 
@@ -114,15 +112,6 @@ form.addEventListener('submit', (event) => {
   commentObj.timestamp = timestampString;
   commentObj.text = comment;
   comments.unshift(commentObj); //push new comment to the array
-
-  
-  // diving deeper
-  //function takes in two Date objects of the current comment and the previous comment, and calculates the time difference between them in minutes
-  
-  // function getTimeDiff(current, previous) {
-  // const diff = (current.getTime() - previous.getTime(date())) / 1000 / 60; // convert milliseconds to minutes
-  // return `${Math.floor(diff)} minutes ago`;
-  // }
 
   document.querySelector('#name').value = ''; //reset the form 
   document.querySelector('#comment').value = '';
