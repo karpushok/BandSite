@@ -196,7 +196,7 @@ body {
   width: calc((100% - 0rem) / 1);
   filter: grayscale(70%);
 }
-.photo-alboms:hover {
+.photo-alboms__item:hover {
   filter: grayscale(0);
   transition: all 0.2s;
 }

@@ -96,11 +96,11 @@ body {// Set the basic styles for the document
 
   &__item {
   width: calc((100% - 0rem) / 1);
-  filter: grayscale(70%);} //grayscale filter for images
-
+  filter: grayscale(70%);
   &:hover { 
   filter: grayscale(0);
   transition: all 0.2s;}
+  } //grayscale filter for images
 }
 
 .comments__header {// Set the styles for the comments section
