@@ -5,11 +5,9 @@
 @font-face {
   font-family: Demi;
   src: url(../assets/fonts/AvenirNextLTPro-Demi.otf);
-  src: url(../assets/fonts/AvenirNextLTPro-Demi.otf);
 }
 @font-face {
   font-family: Regular;
-  src: url(../assets/fonts/AvenirNextLTPro-Regular.otf);
   src: url(../assets/fonts/AvenirNextLTPro-Regular.otf);
 }
 @media screen and (min-width: 768px) {
@@ -144,7 +142,6 @@ body {
 
 .hero {
   background-image: url(../assets/images/hero-bio.jpg);
-  background-image: url(../assets/images/hero-bio.jpg);
   background-size: cover;
   position: relative;
   height: 15rem;
@@ -226,6 +223,10 @@ body {
   height: 2.25rem;
   background-color: #E1E1E1;
   border-radius: 50%;
+}
+.avatar__main {
+  background: url(../assets/images/Mohan-muruge.jpg);
+  background-size: cover;
 }
 
 form, .avatar__container {
