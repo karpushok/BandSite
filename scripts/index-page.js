@@ -124,7 +124,7 @@ form.addEventListener('submit', (event) => {
     displayComment(comment);
   })
 
-  
+
 
 });
 

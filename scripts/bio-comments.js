@@ -1,4 +1,7 @@
 // Global variable to store API key
+
+const storedApiKey = localStorage.getItem('api_key')
+
 let apiKey;
 const url = 'https://project-1-api.herokuapp.com/';
 
@@ -8,8 +11,8 @@ function registerWithApi(url) {
     .then(response => {
       // Save API key in global variable
       apiKey = response.data.api_key;
-
-      console.log(`bio-comments.js - line: 12 ->> apiKey`, apiKey)
+      // Save key to localstorage for later use
+      localStorage.setItem('api_key', apiKey);
 
       // Save API key in global variable
       getCommentsAndAppendToDom(url);
@@ -20,6 +23,15 @@ function registerWithApi(url) {
 }
 
 // Get API key from server
+
+console.log(storedApiKey)
+  
+if (storedApiKey) {
+  apiKey = storedApiKey
+} else {
+  registerWithApi(url);
+}
+
 registerWithApi(url);
 
 // Function to retrieve comments from API and add them to the page
@@ -140,6 +152,4 @@ function sendComment() {
     document.querySelector('#comment').value = "";
   })}
 
-
-
-
+  
