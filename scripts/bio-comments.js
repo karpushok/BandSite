@@ -85,6 +85,21 @@ function sendComment() {
     comment: commentValue
   }
 
+  if (commentValue == "") {
+    document.querySelector('#comment').style.borderColor = "#D22D2D";
+    return;
+  }
+  else {
+    document.querySelector('#comment').style.borderColor = "#E1E1E1";
+  }
+
+  if (nameValue == "") {
+    document.querySelector('#name').style.borderColor = "#D22D2D";
+    return;
+  }
+  else {
+    document.querySelector('#name').style.borderColor = "#E1E1E1";
+  }
 
   axios.post(url + `comments?api_key=${apiKey}`, newComment).then((response) => {
     console.log(`bio-comments.js - line: 95 ->> response`, response)
@@ -120,11 +135,10 @@ function sendComment() {
     document.querySelector('.comments-default').prepend(ticketsSeparator);
     document.querySelector('.comments-default').prepend(commentList);
 
-  })
-
- 
-
-}
+    // clear form
+    document.querySelector('#name').value = "";
+    document.querySelector('#comment').value = "";
+  })}
 
 
 

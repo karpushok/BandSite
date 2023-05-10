@@ -119,8 +119,12 @@ form.addEventListener('submit', (event) => {
   while (commentsDefault.firstChild) {
     commentsDefault.removeChild(commentsDefault.firstChild)
   }
+
   comments.forEach(comment => {
     displayComment(comment);
   })
+
+  
+
 });
 
