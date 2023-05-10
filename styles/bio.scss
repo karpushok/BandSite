@@ -86,7 +86,8 @@ body {// Set the basic styles for the document
 }     
 
 .photo-alboms {// Set the styles for the photo albums section
-  margin: 1rem 1rem;
+  // margin: 1rem 0;
+  padding: 1rem;
   background-color: colors.$secondary-white;
 
   &__list {
@@ -250,10 +251,10 @@ button[type="submit"] {
   }
   
   .photo-alboms {// Set the styles for the photo album items
-    @include padding;
+    padding: 0 10vw;
 
     &__item {
-    width: calc((100% - 6rem) / 3);
+    width: calc((100% - 4rem) / 3);
     padding: 0.3rem;}
 
     &__header {// Set the styles for the photo album header
@@ -276,7 +277,7 @@ button[type="submit"] {
     font-size: 120%;}
 
     &__address {
-    margin-left: 5rem;}
+    margin-left: 2rem;}
 
     &__subheader {
     margin-top: 0;
@@ -284,12 +285,13 @@ button[type="submit"] {
 
     &__container {
       &--main {
-        @include flex-between;
+      @include flex-between;
       flex-direction: column;
-      margin: 1rem 3rem;}
+      // margin: 1rem;
+      }
 
       &--second {
-        @include flex-between;
+      @include flex-between;
       flex-direction: row;
       margin: 1rem 2rem;}
 
@@ -304,6 +306,6 @@ button[type="submit"] {
     }
 
   h3 {
-    margin-top: -3rem;
-  }
+    margin-top: -3.5rem;
+    }
 }

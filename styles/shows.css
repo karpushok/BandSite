@@ -375,7 +375,7 @@ tr {
     font-size: 120%;
   }
   .footer__address {
-    margin-left: 5rem;
+    margin-left: 2rem;
   }
   .footer__subheader {
     margin-top: 0;
@@ -385,13 +385,11 @@ tr {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    margin: 1rem 3rem;
   }
   .footer__container--second {
     display: flex;
     justify-content: space-between;
     flex-direction: row;
-    gap: 1rem;
     margin: 1rem 2rem;
   }
   .footer__container--social {
@@ -404,6 +402,6 @@ tr {
     margin-left: 14vw;
   }
   h3 {
-    margin-top: -3rem;
+    margin-top: -3.5rem;
   }
 }/*# sourceMappingURL=shows.css.map */

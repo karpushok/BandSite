@@ -277,7 +277,7 @@ tr {
     font-size: 120%;}
 
     &__address {
-    margin-left: 5rem;}
+    margin-left: 2rem;}
 
     &__subheader {
     margin-top: 0;
@@ -285,14 +285,14 @@ tr {
 
     &__container {
       &--main {
-        @include flex-between;
+      @include flex-between;
       flex-direction: column;
-      margin: 1rem 3rem;}
+      // margin: 1rem;
+      }
 
       &--second {
       @include flex-between;
       flex-direction: row;
-      gap: 1rem;
       margin: 1rem 2rem;}
 
       &--social {
@@ -304,8 +304,9 @@ tr {
       margin-left: 14vw;}
     }
     }
+
   h3 {
-    margin-top: -3rem;
-  }
+    margin-top: -3.5rem;
+    }
 }
 

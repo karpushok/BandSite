@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/bio.css">
+    <title>Band Site</title>
+</head>
+<body>
+    <section class="comments">
+        <h2 class="comments__header">Join the Conversation</h2>
+        <div class="comments__section">
+            <div class="comment-form">
+              <div class="avatar avatar__main"></div>
+              <form action="#" onsubmit="return false">
+                <label for="name">NAME</label>
+                <input type="text" id="name" name="name" class="comment-form__input" placeholder="Enter your name">
+                <label for="comment">COMMENT</label>
+                <textarea id="comment" name="comment" placeholder="Enter your comment"></textarea>
+                <!-- set time of the comment -->
+                <!-- <p class="comment__timestamp"></p>  -->
+                <button type="submit" id="submit-comment">Comment</button>
+              </form>
+            </div>
+            <hr class="tickets__separator">
+            <!-- default comments -->
+            <div class="comments-default"></div> 
+        </div>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../scripts/bio-comments.js"></script>
+</body>
+</html>

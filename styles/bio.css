@@ -184,7 +184,7 @@ body {
 }
 
 .photo-alboms {
-  margin: 1rem 1rem;
+  padding: 1rem;
   background-color: #FAFAFA;
 }
 .photo-alboms__list {
@@ -364,19 +364,18 @@ button[type=submit] {
     margin-left: 10rem;
   }
   .photo-alboms {
-    padding-left: 10rem;
-    padding-right: 10rem;
+    padding: 0 10vw;
   }
   .photo-alboms__item {
-    width: calc((100% - 6rem) / 3);
+    width: calc((100% - 4rem) / 3);
     padding: 0.3rem;
   }
   .photo-alboms__header {
     padding-top: 2rem;
   }
   .about {
-    padding-left: 10rem;
-    padding-right: 10rem;
+    padding-left: 10vw;
+    padding-right: 10vw;
   }
   .about__header {
     margin-left: -5rem;
@@ -393,7 +392,7 @@ button[type=submit] {
     font-size: 120%;
   }
   .footer__address {
-    margin-left: 5rem;
+    margin-left: 2rem;
   }
   .footer__subheader {
     margin-top: 0;
@@ -403,7 +402,6 @@ button[type=submit] {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    margin: 1rem 3rem;
   }
   .footer__container--second {
     display: flex;
@@ -421,6 +419,6 @@ button[type=submit] {
     margin-left: 14vw;
   }
   h3 {
-    margin-top: -3rem;
+    margin-top: -3.5rem;
   }
 }/*# sourceMappingURL=bio.css.map */
