@@ -23,16 +23,14 @@ function registerWithApi(url) {
 }
 
 // Get API key from server
-
-console.log(storedApiKey)
   
 if (storedApiKey) {
   apiKey = storedApiKey
+  getCommentsAndAppendToDom(url);
+
 } else {
   registerWithApi(url);
 }
-
-registerWithApi(url);
 
 // Function to retrieve comments from API and add them to the page
 function getCommentsAndAppendToDom(url) {
@@ -45,8 +43,10 @@ function getCommentsAndAppendToDom(url) {
       // Get comments from API response
       const comments = response.data;
 
+    // [].sort()
+
       // Add comments to the page
-      comments.forEach(comment => {
+      comments.sort((a , b) => b.timestamp - a.timestamp).forEach(comment => {
         const commentList = document.createElement('div');
         const avatar = document.createElement('div');
         const avatarContainer = document.createElement('div');
