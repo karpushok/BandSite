@@ -43,8 +43,6 @@ function getCommentsAndAppendToDom(url) {
       // Get comments from API response
       const comments = response.data;
 
-    // [].sort()
-
       // Add comments to the page
       comments.sort((a , b) => b.timestamp - a.timestamp).forEach(comment => {
         const commentList = document.createElement('div');
@@ -66,7 +64,13 @@ function getCommentsAndAppendToDom(url) {
 
         commentListParagraph.innerText = comment.comment
         commentListParagraphName.innerText = comment.name
-        commentListParagraphDate.innerText = new Date(comment.timestamp).toLocaleDateString("en-US")
+        commentListParagraphDate.innerText = new Date(comment.timestamp).toLocaleDateString("en-GB", {
+          
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
+        
+        })
       
         innerAvatarEmptyDiv.append(commentListParagraphName, commentListParagraphDate)
         avatarContainer.appendChild(innerAvatarEmptyDiv)
@@ -135,7 +139,11 @@ function sendComment() {
   
     commentListParagraph.innerText = response.data.comment
     commentListParagraphName.innerText = response.data.name
-    commentListParagraphDate.innerText = new Date(response.data.timestamp).toLocaleDateString("en-US")
+    commentListParagraphDate.innerText = new Date(response.data.timestamp).toLocaleDateString("en-GB", {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    })
   
     innerAvatarEmptyDiv.append(commentListParagraphName, commentListParagraphDate)
     avatarContainer.appendChild(innerAvatarEmptyDiv)
