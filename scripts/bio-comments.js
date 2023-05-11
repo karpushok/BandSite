@@ -54,6 +54,11 @@ function getCommentsAndAppendToDom(url) {
         const commentListParagraphDate = document.createElement('p')
         const ticketsSeparator = document.createElement('hr');
 
+        const commentsButtons = document.createElement('div');
+        const commentButtonLike = document.createElement('button');
+        const commentButtonDelete = document.createElement('button');
+        const commentButtonLikeCount = document.createElement('p');
+
         ticketsSeparator.classList.add('tickets__separator');
         commentList.classList.add('comment-list');
         avatar.classList.add('avatar');
@@ -62,19 +67,36 @@ function getCommentsAndAppendToDom(url) {
         commentListParagraphName.classList.add('comment-list__paragraph', 'is--bolded')
         commentListParagraphDate.classList.add('comment-list__paragraph', 'is--grey')
 
+        // .setAttribute('id', '')
+        // .setAttribute('data-id', '')
+
+        commentButtonLike.setAttribute('data-id', `${comment.id}`)
+        commentButtonLikeCount.setAttribute('id', `count-${comment.id}`)
+
+        commentButtonLike.addEventListener('click', handleLike.bind(null, comment.id))
+
         commentListParagraph.innerText = comment.comment
         commentListParagraphName.innerText = comment.name
         commentListParagraphDate.innerText = new Date(comment.timestamp).toLocaleDateString("en-GB", {
-          
             year: 'numeric',
             month: '2-digit',
             day: '2-digit'
-        
         })
-      
+
+        commentButtonLikeCount.innerHTML = comment.likes;
+
+        commentButtonLike.innerHTML = `
+        <img src="../assets/icons/like.png" alt="Like" class="comments__buttons--button">
+        `
+        commentButtonDelete.innerHTML = `
+        <img src="../assets/icons/delete.png" alt="Delete" class="comments__buttons--button">
+        `
+        commentsButtons.append(commentButtonLike, commentButtonLikeCount, commentButtonDelete);
+        
         innerAvatarEmptyDiv.append(commentListParagraphName, commentListParagraphDate)
         avatarContainer.appendChild(innerAvatarEmptyDiv)
         avatarContainer.appendChild(commentListParagraph)
+        avatarContainer.appendChild(commentsButtons)
         
         commentList.appendChild(avatar)
         commentList.appendChild(avatarContainer)
@@ -160,4 +182,23 @@ function sendComment() {
     document.querySelector('#comment').value = "";
   })}
 
+
+function handleLike(id, event) {
+  event.stopPropagation() // stop event from triggering other on click events
+
+  // const commentId = event.target.getAttribute('data-id')
+
+  console.log(`bio-comments.js - line: 193 ->> id`, id)
+
+  const likeCountById = document.getElementById(`count-${id}`)
+
+  axios.put(url + `comments/${id}/like?api_key=${apiKey}`).then((response) => {
+  
+    likeCountById.innerText = response.data.likes
+    console.log(`bio-comments.js - line: 199 ->> response`, response.data)
+
+
+  })
+
+}
   
