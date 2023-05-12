@@ -270,18 +270,18 @@ input:focus, textarea:focus {
   gap: 2rem;
 }
 .comments__buttons--button {
-  height: 1rem;
-  width: 1rem;
+  height: 0.8rem;
+  width: 0.8rem;
   background-color: transparent;
   border: none;
 }
 .comments__buttons--button:hover {
   cursor: pointer;
-  transform: scale(1.2);
-  transition: all 0.3s;
+  transform: scale(1.1);
+  transition: all 0.2s;
 }
 .comments__buttons--button:not(:hover) {
-  transition: all 0.3s;
+  transition: all 0.2s;
 }
 
 button[type=submit] {
@@ -305,6 +305,7 @@ button[type=submit] {
 .avatar__container > div {
   display: flex;
   justify-content: space-between;
+  gap: 1rem;
 }
 
 .is--bolded {

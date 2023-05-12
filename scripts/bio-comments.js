@@ -66,9 +66,10 @@ function getCommentsAndAppendToDom(url) {
         commentListParagraph.classList.add('comment-list__paragraph');
         commentListParagraphName.classList.add('comment-list__paragraph', 'is--bolded')
         commentListParagraphDate.classList.add('comment-list__paragraph', 'is--grey')
+        commentButtonLikeCount.classList.add('comment-list__paragraph')
+        commentButtonLike.classList.add('comment-list__button')
+        commentButtonDelete.classList.add('comment-list__button')
 
-        // .setAttribute('id', '')
-        // .setAttribute('data-id', '')
 
         commentButtonLike.setAttribute('data-id', `${comment.id}`)
         commentButtonLikeCount.setAttribute('id', `count-${comment.id}`)
@@ -150,6 +151,13 @@ function sendComment() {
     const commentListParagraphName = document.createElement('p')
     const commentListParagraphDate = document.createElement('p')
     const ticketsSeparator = document.createElement('hr');
+
+
+    const commentsButtons = document.createElement('div');
+    const commentButtonLike = document.createElement('button');
+    const commentButtonDelete = document.createElement('button');
+    const commentButtonLikeCount = document.createElement('p');
+
   
     ticketsSeparator.classList.add('tickets__separator');
     commentList.classList.add('comment-list');
@@ -158,7 +166,17 @@ function sendComment() {
     commentListParagraph.classList.add('comment-list__paragraph');
     commentListParagraphName.classList.add('comment-list__paragraph', 'is--bolded')
     commentListParagraphDate.classList.add('comment-list__paragraph', 'is--grey')
+    commentButtonLikeCount.classList.add('comment-list__paragraph')
+    commentButtonLike.classList.add('comment-list__button')
+    commentButtonDelete.classList.add('comment-list__button')
   
+
+    commentButtonLike.setAttribute('data-id', `${response.data.id}`)
+    commentButtonLikeCount.setAttribute('id', `count-${response.data.id}`)
+
+    commentButtonLike.addEventListener('click', handleLike.bind(null, response.data.id))
+
+
     commentListParagraph.innerText = response.data.comment
     commentListParagraphName.innerText = response.data.name
     commentListParagraphDate.innerText = new Date(response.data.timestamp).toLocaleDateString("en-GB", {
@@ -166,10 +184,20 @@ function sendComment() {
       month: '2-digit',
       day: '2-digit'
     })
+
+    commentButtonLikeCount.innerHTML = response.data.likes;
+    commentButtonLike.innerHTML = `
+    <img src="../assets/icons/like.png" alt="Like" class="comments__buttons--button">
+    `
+    commentButtonDelete.innerHTML = `
+    <img src="../assets/icons/delete.png" alt="Delete" class="comments__buttons--button">
+    `
   
+    commentsButtons.append(commentButtonLike, commentButtonLikeCount, commentButtonDelete);
     innerAvatarEmptyDiv.append(commentListParagraphName, commentListParagraphDate)
     avatarContainer.appendChild(innerAvatarEmptyDiv)
     avatarContainer.appendChild(commentListParagraph)
+    avatarContainer.appendChild(commentsButtons)
     
     commentList.appendChild(avatar)
     commentList.appendChild(avatarContainer)
@@ -183,22 +211,32 @@ function sendComment() {
   })}
 
 
-function handleLike(id, event) {
+// DIVING DEEPER
+
+function handleLike(id, event) { //function for likes
   event.stopPropagation() // stop event from triggering other on click events
 
-  // const commentId = event.target.getAttribute('data-id')
-
   console.log(`bio-comments.js - line: 193 ->> id`, id)
-
   const likeCountById = document.getElementById(`count-${id}`)
 
-  axios.put(url + `comments/${id}/like?api_key=${apiKey}`).then((response) => {
-  
+  axios.put(url + `comments/${id}/like?api_key=${apiKey}`)
+  .then((response) => {
     likeCountById.innerText = response.data.likes
     console.log(`bio-comments.js - line: 199 ->> response`, response.data)
-
-
   })
-
 }
-  
+
+// NOT FINISHED
+
+function handleDelete(id, event) { // function for deleting comments
+  event.stopPropagation(); // stop event from triggering other on click events
+
+  axios.delete(url + `comments/${id}?api_key=${apiKey}`)
+    .then(() => {
+      const commentElement = document.getElementById(`comment-${id}`);
+      console.log(`bio-comments.js - line: 199 ->> Comment deleted`);
+    })
+    .catch((error) => {
+      console.error(`bio-comments.js - line: 201 ->> Error deleting comment`, error);
+    });
+}
