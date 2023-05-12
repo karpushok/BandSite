@@ -1,39 +1,62 @@
 // An array with all the shows' data
-const showsData = [
-  {
-    date: 'Mon Sept 06 2021',
-    venue: 'Ronald Rane',
-    location: 'San Francisco, CA'
-  },
-  {
-    date: 'Tue Sept 21 2021',
-    venue: 'Pier 3 East',
-    location: 'San Francisco, CA'
-  },
-  {
-    date: 'Fri Oct 15 2021',
-    venue: 'View Lounge',
-    location: 'San Francisco, CA'
-  },
-  {
-    date: 'Sat Nov 06 2021',
-    venue: 'Hyatt Agency',
-    location: 'San Francisco, CA'
-  },
-  {
-    date: 'Fri Nov 26 2021',
-    venue: 'Moscow Center',
-    location: 'San Francisco, CA'
-  },
-  {
-    date: 'Wed Dec 15 2021',
-    venue: 'Press Club',
-    location: 'San Francisco, CA'
-  },
-];
 
-// Call the renderShows function with the showsData array as an argument
-renderShows(showsData);
+const storedApiKey = sessionStorage.getItem('api_key')
+
+let apiKey;
+const url = 'https://project-1-api.herokuapp.com/';
+
+function registerWithApi(url) {
+  axios.get(url + 'register')
+    .then(response => {
+      // Save API key in global variable
+      apiKey = response.data.api_key;
+      // Save key to localstorage for later use
+      sessionStorage.setItem('api_key', apiKey);
+      
+      // get shows, save them to a variable
+      getShowDates( url );
+      // Call the renderShows function with the showsData array as an argument
+      ;
+    })
+    .catch(error => {
+      console.error('Registration error:', error);
+    });
+}
+
+
+if (storedApiKey) {
+  apiKey = storedApiKey
+  // get shows, save them to a variable
+  getShowDates( url );
+  // Call the renderShows function with the showsData array as an argument
+  
+} else {
+  // Get API key from server
+  registerWithApi(url);
+}
+
+function getShowDates(url) {
+  
+  const params = {
+    api_key: apiKey
+  };
+
+  axios.get(url + 'showDates', { params: params }).then(response => {
+
+    if (response.status === 200) {
+      // Call the renderShows function with the showsData array as an argument
+      renderShows(response.data);
+
+    } else {
+      renderShows([{
+        date: 'no data',
+        place: 'no data',
+        location: 'no data'
+      }])
+    }
+
+  })
+}
 
 // Use JavaScript to dynamically create the HTML elements for each show and add them to the DOM
 function renderShows(showsData) {
@@ -55,7 +78,13 @@ function renderShows(showsData) {
     // Create a p element for the date value
     const dateElement = document.createElement('p');
     dateElement.classList.add('tickets__date', 'tickets__cell--bolder', 'tickets__cell');
-    dateElement.textContent = show.date;
+    
+    // 
+    dateElement.textContent = new Date(show.date).toLocaleDateString("en-GB", {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    });
     showElement.appendChild(dateElement);
 
     // Create a p element for the venue title
@@ -67,7 +96,7 @@ function renderShows(showsData) {
     // Create a p element for the venue value
     const venueElement = document.createElement('p');
     venueElement.classList.add('tickets__venue', 'tickets__cell');
-    venueElement.textContent = show.venue;
+    venueElement.textContent = show.place;
     showElement.appendChild(venueElement);
 
     // Create a p element for the location title
@@ -102,5 +131,11 @@ function renderShows(showsData) {
     showsList.appendChild(dividerLine);
   });
 
-  document.body.appendChild(showsList);
+  function insertAfter(referenceNode, newNode) {
+    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+  }
+  
+  const main = document.querySelector('.main');
+
+  insertAfter(main, showsList)
 }

@@ -1,6 +1,6 @@
 // Global variable to store API key
 
-const storedApiKey = localStorage.getItem('api_key')
+const storedApiKey = sessionStorage.getItem('api_key')
 
 let apiKey;
 const url = 'https://project-1-api.herokuapp.com/';
@@ -12,7 +12,7 @@ function registerWithApi(url) {
       // Save API key in global variable
       apiKey = response.data.api_key;
       // Save key to localstorage for later use
-      localStorage.setItem('api_key', apiKey);
+      sessionStorage.setItem('api_key', apiKey);
 
       // Save API key in global variable
       getCommentsAndAppendToDom(url);
@@ -192,7 +192,6 @@ function sendComment() {
     commentButtonDelete.innerHTML = `
     <img src="../assets/icons/delete.png" alt="Delete" class="comments__buttons--button">
     `
-  
     commentsButtons.append(commentButtonLike, commentButtonLikeCount, commentButtonDelete);
     innerAvatarEmptyDiv.append(commentListParagraphName, commentListParagraphDate)
     avatarContainer.appendChild(innerAvatarEmptyDiv)
