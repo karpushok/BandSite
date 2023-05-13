@@ -106,10 +106,10 @@ function getCommentsAndAppendToDom(url) {
           commentButtonLikeCount.innerHTML = comment.likes
 
           commentButtonLike.innerHTML = `
-        <img src="../assets/icons/like.png" alt="Like" class="comments__buttons--button">
+        <img src="./assets/icons/like.png" alt="Like" class="comments__buttons--button">
         `
           commentButtonDelete.innerHTML = `
-        <img src="../assets/icons/delete.png" alt="Delete" class="comments__buttons--button">
+        <img src="./assets/icons/delete.png" alt="Delete" class="comments__buttons--button">
         `
           commentsButtons.append(
             commentButtonLike,
@@ -227,10 +227,10 @@ function sendComment() {
 
       commentButtonLikeCount.innerHTML = response.data.likes
       commentButtonLike.innerHTML = `
-    <img src="../assets/icons/like.png" alt="Like" class="comments__buttons--button">
+    <img src="./assets/icons/like.png" alt="Like" class="comments__buttons--button">
     `
       commentButtonDelete.innerHTML = `
-    <img src="../assets/icons/delete.png" alt="Delete" class="comments__buttons--button">
+    <img src="./assets/icons/delete.png" alt="Delete" class="comments__buttons--button">
     `
       commentsButtons.append(
         commentButtonLike,
