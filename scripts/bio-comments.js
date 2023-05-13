@@ -56,8 +56,8 @@ function getCommentsAndAppendToDom(url) {
 
         const commentsButtons = document.createElement('div');
         const commentButtonLike = document.createElement('button');
-        const commentButtonDelete = document.createElement('button');
         const commentButtonLikeCount = document.createElement('p');
+        const commentButtonDelete = document.createElement('button');
 
         ticketsSeparator.classList.add('tickets__separator');
         commentList.classList.add('comment-list');
@@ -69,12 +69,13 @@ function getCommentsAndAppendToDom(url) {
         commentButtonLikeCount.classList.add('comment-list__paragraph')
         commentButtonLike.classList.add('comment-list__button')
         commentButtonDelete.classList.add('comment-list__button')
-
-
+        
+        commentList.setAttribute('id', `comment-${comment.id}`)
         commentButtonLike.setAttribute('data-id', `${comment.id}`)
         commentButtonLikeCount.setAttribute('id', `count-${comment.id}`)
 
         commentButtonLike.addEventListener('click', handleLike.bind(null, comment.id))
+        commentButtonDelete.addEventListener('click', handleDelete.bind(null, comment.id))
 
         commentListParagraph.innerText = comment.comment
         commentListParagraphName.innerText = comment.name
@@ -82,7 +83,7 @@ function getCommentsAndAppendToDom(url) {
             year: 'numeric',
             month: '2-digit',
             day: '2-digit'
-        })
+        });
 
         commentButtonLikeCount.innerHTML = comment.likes;
 
@@ -170,12 +171,12 @@ function sendComment() {
     commentButtonLike.classList.add('comment-list__button')
     commentButtonDelete.classList.add('comment-list__button')
   
-
+    commentList.setAttribute('id', `comment-${response.data.id}`)
     commentButtonLike.setAttribute('data-id', `${response.data.id}`)
     commentButtonLikeCount.setAttribute('id', `count-${response.data.id}`)
 
     commentButtonLike.addEventListener('click', handleLike.bind(null, response.data.id))
-
+    commentButtonDelete.addEventListener('click', handleDelete.bind(null, response.data.id))
 
     commentListParagraph.innerText = response.data.comment
     commentListParagraphName.innerText = response.data.name
@@ -215,13 +216,15 @@ function sendComment() {
 function handleLike(id, event) { //function for likes
   event.stopPropagation() // stop event from triggering other on click events
 
-  console.log(`bio-comments.js - line: 193 ->> id`, id)
   const likeCountById = document.getElementById(`count-${id}`)
 
   axios.put(url + `comments/${id}/like?api_key=${apiKey}`)
   .then((response) => {
-    likeCountById.innerText = response.data.likes
-    console.log(`bio-comments.js - line: 199 ->> response`, response.data)
+    if (response.status === 200) {
+      likeCountById.innerText = response.data.likes;
+    }
+  }).catch((error) =>{
+    console.error(`Like error`, error);
   })
 }
 
@@ -229,13 +232,20 @@ function handleLike(id, event) { //function for likes
 
 function handleDelete(id, event) { // function for deleting comments
   event.stopPropagation(); // stop event from triggering other on click events
+  
+  const commentElement = document.getElementById(`comment-${id}`);
+  const commentSeparator = commentElement.nextElementSibling;
 
-  axios.delete(url + `comments/${id}?api_key=${apiKey}`)
-    .then(() => {
-      const commentElement = document.getElementById(`comment-${id}`);
-      console.log(`bio-comments.js - line: 199 ->> Comment deleted`);
+  axios.delete(url + `comments/${id}/?api_key=${apiKey}`)
+    .then((response) => {
+
+      if (response.status === 200) {
+        commentElement.remove();
+        commentSeparator.remove();
+      }
+
     })
     .catch((error) => {
-      console.error(`bio-comments.js - line: 201 ->> Error deleting comment`, error);
+      console.error(`Delete error`, error);
     });
 }
