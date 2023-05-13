@@ -1,3 +1,5 @@
+@use './colors';
+
 @mixin links {
   text-decoration: none;
   color: colors.$primary-white;
@@ -42,4 +44,72 @@
   width: 2rem;
   height: 2rem;
   margin-right: 1rem;
+}
+
+@mixin footer-desktop {
+  .footer {
+  &__header {
+    @include links;
+    font-size: 120%;}
+
+    &__address {
+    margin-left: 2rem;}
+
+    &__subheader {
+    margin-top: 0;
+    margin-bottom: 0;}
+
+    &__container {
+      &--main {
+      @include flex-between;
+      flex-direction: column;
+      // margin: 1rem;
+      }
+
+      &--second {
+      @include flex-between;
+      flex-direction: row;
+      margin: 1rem 2rem;}
+
+      &--social {
+      @include flex-start;
+      margin-left: 2rem;
+      align-items: end;}
+
+      &--social-container {
+      margin-left: 14vw;}
+    }
+    }
+
+  h3 {
+    margin-top: -3.5rem;
+    }
+}
+
+@mixin footer-mobile {
+  .footer {// Set the styles for the footer section
+    background-color: colors.$primary-black;
+    color: colors.$primary-white;
+    padding: 1rem;
+  
+    &__subheader {// Set the styles for the subheader in the footer
+     margin-bottom: 1rem;}
+  
+    &__header {// Set the font family for the header in the footer
+      font-family: 'Regular';
+      @include links;
+      font-size: 150%;}
+  
+    &__social-button {// Set the styles for social buttons in the footer
+      @include social-button}
+  
+    &__paragraph {// Set the styles for paragraphs in the footer
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;}
+  
+    &__email {// Set the styles for the email link in the footer and use the links mixin
+      margin-top: 0.5rem;
+      @include links;}
+  }
 }

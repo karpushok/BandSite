@@ -78,14 +78,15 @@ function renderShows(showsData) {
     // Create a p element for the date value
     const dateElement = document.createElement('p');
     dateElement.classList.add('tickets__date', 'tickets__cell--bolder', 'tickets__cell');
-    
-    // 
-    dateElement.textContent = new Date(show.date).toLocaleDateString("en-GB", {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit'
+    const formattedDate = new Date(show.date).toLocaleDateString("en-US", {
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric'
     });
+    dateElement.textContent = formattedDate;
     showElement.appendChild(dateElement);
+
 
     // Create a p element for the venue title
     const venueTitle = document.createElement('p');
