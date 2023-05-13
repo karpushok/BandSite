@@ -232,20 +232,23 @@ function handleLike(id, event) { //function for likes
 
 function handleDelete(id, event) { // function for deleting comments
   event.stopPropagation(); // stop event from triggering other on click events
-  
+
   const commentElement = document.getElementById(`comment-${id}`);
   const commentSeparator = commentElement.nextElementSibling;
 
-  axios.delete(url + `comments/${id}/?api_key=${apiKey}`)
-    .then((response) => {
+  const result = confirm("You sure you want to delete this comment?");
+  
+  if (result) {
+    axios.delete(url + `comments/${id}/?api_key=${apiKey}`)
+      .then((response) => {
 
-      if (response.status === 200) {
-        commentElement.remove();
-        commentSeparator.remove();
-      }
-
-    })
-    .catch((error) => {
-      console.error(`Delete error`, error);
-    });
+        if (response.status === 200) {
+          commentElement.remove();
+          commentSeparator.remove();
+        }
+      })
+      .catch((error) => {
+        console.error(`Delete error`, error);
+      });
+  }
 }
