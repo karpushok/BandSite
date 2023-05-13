@@ -88,6 +88,14 @@ iframe {
   width: 100%;
 }
 
+.tickets-shows {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 1rem;
+
+
+}
+
 .tickets {// Set the styles for the tickets section
   display: flex;
   flex-wrap: wrap;
@@ -271,41 +279,8 @@ tr {
     }
   }
 
-  .footer {// Set the styles for the footer
-    &__header {
-    @include links;
-    font-size: 120%;}
-
-    &__address {
-    margin-left: 5rem;}
-
-    &__subheader {
-    margin-top: 0;
-    margin-bottom: 0;}
-
-    &__container {
-      &--main {
-        @include flex-between;
-      flex-direction: column;
-      margin: 1rem 3rem;}
-
-      &--second {
-      @include flex-between;
-      flex-direction: row;
-      gap: 1rem;
-      margin: 1rem 2rem;}
-
-      &--social {
-      @include flex-start;
-      margin-left: 2rem;
-      align-items: end;}
-
-      &--social-container {
-      margin-left: 14vw;}
-    }
-    }
-  h3 {
-    margin-top: -3rem;
+  .footer {
+    @include footer-desktop;
   }
 }
 

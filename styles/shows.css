@@ -186,6 +186,12 @@ iframe {
   width: 100%;
 }
 
+.tickets-shows {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 1rem;
+}
+
 .tickets {
   display: flex;
   flex-wrap: wrap;
@@ -368,42 +374,40 @@ tr {
     width: 46rem;
     margin: auto;
   }
-  .footer__header {
+  .footer .footer__header {
     text-decoration: none;
     color: #FFFFFF;
     margin: 0;
     font-size: 120%;
   }
-  .footer__address {
-    margin-left: 5rem;
+  .footer .footer__address {
+    margin-left: 2rem;
   }
-  .footer__subheader {
+  .footer .footer__subheader {
     margin-top: 0;
     margin-bottom: 0;
   }
-  .footer__container--main {
+  .footer .footer__container--main {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    margin: 1rem 3rem;
   }
-  .footer__container--second {
+  .footer .footer__container--second {
     display: flex;
     justify-content: space-between;
     flex-direction: row;
-    gap: 1rem;
     margin: 1rem 2rem;
   }
-  .footer__container--social {
+  .footer .footer__container--social {
     display: flex;
     justify-content: flex-start;
     margin-left: 2rem;
     align-items: end;
   }
-  .footer__container--social-container {
+  .footer .footer__container--social-container {
     margin-left: 14vw;
   }
-  h3 {
-    margin-top: -3rem;
+  .footer h3 {
+    margin-top: -3.5rem;
   }
 }/*# sourceMappingURL=shows.css.map */

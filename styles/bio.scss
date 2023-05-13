@@ -86,7 +86,8 @@ body {// Set the basic styles for the document
 }     
 
 .photo-alboms {// Set the styles for the photo albums section
-  margin: 1rem 1rem;
+  // margin: 1rem 0;
+  padding: 1rem;
   background-color: colors.$secondary-white;
 
   &__list {
@@ -156,6 +157,26 @@ input:focus, textarea:focus { //active state settings
   height: 2.25rem;
   @include input-form;
 }
+.comments__buttons { //settings for 'like' and 'delete' buttons
+  @include flex-start;
+  margin-left: 4rem;
+  gap: 2rem;
+  &--button {
+    height: 0.8rem;
+    width: 0.8rem;
+    background-color: transparent;
+    border: none;
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.1);
+      transition: all 0.2s;
+    }
+    &:not(:hover) {
+      transition: all 0.2s;
+    }
+  }
+
+}
 button[type="submit"] {
   color: colors.$primary-white;
   background-color: colors.$primary-black;
@@ -175,6 +196,7 @@ button[type="submit"] {
 
 .avatar__container > div {// Set the styles for the default comments section
   @include flex-between;
+  gap: 1rem;
 }
 .is--bolded {
   font-family: 'Demi';
@@ -250,10 +272,10 @@ button[type="submit"] {
   }
   
   .photo-alboms {// Set the styles for the photo album items
-    @include padding;
+    padding: 0 10vw;
 
     &__item {
-    width: calc((100% - 6rem) / 3);
+    width: calc((100% - 4rem) / 3);
     padding: 0.3rem;}
 
     &__header {// Set the styles for the photo album header
@@ -271,39 +293,6 @@ button[type="submit"] {
     }
   
   .footer {// Set the styles for the footer
-    &__header {
-    @include links;
-    font-size: 120%;}
-
-    &__address {
-    margin-left: 5rem;}
-
-    &__subheader {
-    margin-top: 0;
-    margin-bottom: 0;}
-
-    &__container {
-      &--main {
-        @include flex-between;
-      flex-direction: column;
-      margin: 1rem 3rem;}
-
-      &--second {
-        @include flex-between;
-      flex-direction: row;
-      margin: 1rem 2rem;}
-
-      &--social {
-      @include flex-start;
-      margin-left: 2rem;
-      align-items: end;}
-
-      &--social-container {
-      margin-left: 14vw;}
-    }
-    }
-
-  h3 {
-    margin-top: -3rem;
+  @include footer-desktop;
   }
 }
