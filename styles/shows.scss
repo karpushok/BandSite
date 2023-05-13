@@ -88,6 +88,14 @@ iframe {
   width: 100%;
 }
 
+.tickets-shows {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 1rem;
+
+
+}
+
 .tickets {// Set the styles for the tickets section
   display: flex;
   flex-wrap: wrap;

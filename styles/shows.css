@@ -186,6 +186,12 @@ iframe {
   width: 100%;
 }
 
+.tickets-shows {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 1rem;
+}
+
 .tickets {
   display: flex;
   flex-wrap: wrap;
