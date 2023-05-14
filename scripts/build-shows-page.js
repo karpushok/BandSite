@@ -1,154 +1,125 @@
-// An array with all the shows' data
-
-const storedApiKey = sessionStorage.getItem('api_key')
-
-let apiKey
+// Define base API URL
 const url = 'https://project-1-api.herokuapp.com/'
 
+// Function for registering and getting the API key
 function registerWithApi(url) {
-  axios
+  // Send a GET request to the registration endpoint
+  return axios
     .get(url + 'register')
     .then((response) => {
-      // Save API key in global variable
-      apiKey = response.data.api_key
-      // Save key to localstorage for later use
-      sessionStorage.setItem('api_key', apiKey)
-
-      // get shows, save them to a variable
-      getShowDates(url)
-      // Call the renderShows function with the showsData array as an argument
+      // Store the received API key in session storage
+      sessionStorage.setItem('api_key', response.data.api_key)
+      // Return the API key
+      return response.data.api_key
     })
     .catch((error) => {
       console.error('Registration error:', error)
     })
 }
 
-if (storedApiKey) {
-  apiKey = storedApiKey
-  // get shows, save them to a variable
-  getShowDates(url)
-  // Call the renderShows function with the showsData array as an argument
-} else {
-  // Get API key from server
-  registerWithApi(url)
-}
+// Function for getting show dates data
+function getShowDates(url, apiKey) {
+  const params = { api_key: apiKey }
 
-function getShowDates(url) {
-  const params = {
-    api_key: apiKey,
-  }
-
-  axios.get(url + 'showDates', { params: params }).then((response) => {
-    if (response.status === 200) {
-      // Call the renderShows function with the showsData array as an argument
-      renderShows(response.data)
-    } else {
-      renderShows([
-        {
-          date: 'no data',
-          place: 'no data',
-          location: 'no data',
-        },
-      ])
-    }
-  })
-}
-
-// Use JavaScript to dynamically create the HTML elements for each show and add them to the DOM
-function renderShows(showsData) {
-  // Create a div element to contain all the shows' data
-  showsList = document.querySelector('.tickets__container')
-
-  // Iterate over each show's data and create HTML elements for each
-  showsData.forEach((show) => {
-    // Create a div element for each show
-    const showElement = document.createElement('div')
-    showElement.classList.add('tickets__row')
-
-    // Create a p element for the date title
-    const dataTitle = document.createElement('p')
-    dataTitle.classList.add(
-      'tickets__header--date',
-      'tickets__header-cell',
-      'desktop-hidden'
-    )
-    dataTitle.textContent = 'DATE'
-    showElement.appendChild(dataTitle)
-
-    // Create a p element for the date value
-    const dateElement = document.createElement('p')
-    dateElement.classList.add(
-      'tickets__date',
-      'tickets__cell--bolder',
-      'tickets__cell'
-    )
-    const formattedDate = new Date(show.date).toLocaleDateString('en-US', {
-      weekday: 'short',
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
+  // Send a GET request to the endpoint that returns show dates
+  return axios.get(url + 'showDates', { params: params })
+    .then(response => response.data)
+    .catch((error) => {
+      console.error('Error getting show dates:', error)
+      // Return a default object in case of an error
+      return [{
+        date: 'no data',
+        place: 'no data',
+        location: 'no data',
+      }]
     })
-    dateElement.textContent = formattedDate
-    showElement.appendChild(dateElement)
+}
 
-    // Create a p element for the venue title
-    const venueTitle = document.createElement('p')
-    venueTitle.classList.add(
-      'tickets__header--venue',
-      'tickets__header-cell',
-      'desktop-hidden'
-    )
-    venueTitle.textContent = 'VENUE'
-    showElement.appendChild(venueTitle)
+// Helper function for creating HTML elements
+function createElement(type, classes, textContent) {
+  const element = document.createElement(type)
+  element.classList.add(...classes)
+  element.textContent = textContent
+  return element
+}
 
-    // Create a p element for the venue value
-    const venueElement = document.createElement('p')
-    venueElement.classList.add('tickets__venue', 'tickets__cell')
-    venueElement.textContent = show.place
-    showElement.appendChild(venueElement)
+// Function for rendering shows
+function renderShows(showsData) {
+  // Select the container for the shows
+  const showsList = document.querySelector('.tickets__container')
 
-    // Create a p element for the location title
-    const locationTitle = document.createElement('p')
-    locationTitle.classList.add(
-      'tickets__header--venue',
-      'tickets__header-cell',
-      'desktop-hidden'
-    )
-    locationTitle.textContent = 'LOCATION'
-    showElement.appendChild(locationTitle)
+  // Iterate over each show's data
+  showsData.forEach((show) => {
+    // Create and append various elements using the helper function
+    const showElement = createElement('div', ['tickets__row'])
+    const dataTitle = createElement('p', ['tickets__header--date', 'tickets__header-cell', 'desktop-hidden'], 'DATE')
+    const dateElement = createElement('p', ['tickets__date', 'tickets__cell--bolder', 'tickets__cell'], formatShowDate(show.date))
+    const venueTitle = createElement('p', ['tickets__header--venue', 'tickets__header-cell', 'desktop-hidden'], 'VENUE')
+    const venueElement = createElement('p', ['tickets__venue', 'tickets__cell'], show.place)
+    const locationTitle = createElement('p', ['tickets__header--venue', 'tickets__header-cell', 'desktop-hidden'], 'LOCATION')
+    const locationElement = createElement('p', ['tickets__location', 'tickets__cell'], show.location)
+    const buyButton = createElement('button', ['tickets__buy-button'], 'Buy Tickets')
 
-    // Create a p element for the location value
-    const locationElement = document.createElement('p')
-    locationElement.classList.add('tickets__location', 'tickets__cell')
-    locationElement.textContent = show.location
-    showElement.appendChild(locationElement)
+    // Append all elements to the show element
+    showElement.append(dataTitle, dateElement, venueTitle, venueElement, locationTitle, locationElement, buyButton)
 
-    // Create a button element for buying tickets
-    const buyButton = document.createElement('button')
-    buyButton.classList.add('tickets__buy-button')
-    buyButton.textContent = 'Buy Tickets'
-    showElement.appendChild(buyButton)
-
+    // Append the show element to the shows list
     showsList.appendChild(showElement)
     showElement.addEventListener('click', (event) => {
-      //add background-color to the current row
+      // On click, change the background color of the current row
       document.querySelectorAll('.tickets__row').forEach((row) => {
         row.style.backgroundColor = 'white'
       })
       event.currentTarget.style.backgroundColor = '#E1E1E1'
     })
 
-    // Create a divider line element
-    const dividerLine = document.createElement('hr')
-    dividerLine.classList.add('tickets__separator')
+    // Add a divider line
+    const dividerLine = createElement('hr', ['tickets__separator'])
     showsList.appendChild(dividerLine)
   })
 
-  function insertAfter(referenceNode, newNode) {
-    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling)
-  }
-
-  const main = document.querySelector('.main')
-
-  insertAfter(main, showsList)
+  // Add the shows list after the main element
+  insertAfter(document.querySelector('.main'), showsList)
 }
+
+// Function for formatting the show date
+function formatShowDate(date) {
+  return new Date(date).toLocaleDateString('en-US', {
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  })
+}
+
+// Function to insert a new node after a reference node
+function insertAfter(referenceNode, newNode) {
+  referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling)
+}
+
+// Get the stored API key from the session storage
+let apiKey = sessionStorage.getItem('api_key')
+
+// If the API key is not available, register with the API to get a new key
+if (!apiKey) {
+  registerWithApi(url)
+    .then(apiKeyFromServer => {
+      apiKey = apiKeyFromServer
+      // Then get the show dates with the new key
+      return getShowDates(url, apiKey)
+    })
+    .then(showsData => {
+      // Render the shows with the obtained data
+      renderShows(showsData)
+    })
+    .catch(console.error)
+} else {
+  // If the API key is available, directly get the show dates
+  getShowDates(url, apiKey)
+    .then(showsData => {
+      // Render the shows with the obtained data
+      renderShows(showsData)
+    })
+    .catch(console.error)
+}
+

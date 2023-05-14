@@ -1,158 +1,71 @@
 // Global variable to store API key
-
 const storedApiKey = sessionStorage.getItem('api_key')
 
 let apiKey
 const url = 'https://project-1-api.herokuapp.com/'
 
-// Function to retrieve API key from server
+// Function to register and get the API key from the server
 function registerWithApi(url) {
-  axios
+  axios // Making a GET request to the registration endpoint
     .get(url + 'register')
     .then((response) => {
-      // Save API key in global variable
+      // The API key is stored in the global variable after successful registration
       apiKey = response.data.api_key
-      // Save key to localstorage for later use
+      // The key is also saved to sessionStorage for future use
       sessionStorage.setItem('api_key', apiKey)
 
-      // Save API key in global variable
+      // Fetch comments from the API after successful registration
       getCommentsAndAppendToDom(url)
     })
-    .catch((error) => {
+    .catch((error) => { // If the registration fails, log the error
       console.error('Registration error:', error)
     })
 }
 
-// Get API key from server
-
+// Check if API key is stored, if not, register with the API
 if (storedApiKey) {
-  apiKey = storedApiKey
+  // If the API key is already stored, use that key
+  apiKey = storedApiKey // Fetch comments from the API
   getCommentsAndAppendToDom(url)
 } else {
-  registerWithApi(url)
+  registerWithApi(url) // If the API key is not stored, register with the API to get a new key
 }
 
-// Function to retrieve comments from API and add them to the page
+// Function to fetch comments from the API and display them on the webpage
 function getCommentsAndAppendToDom(url) {
-  // Add API key to query params
+  // Create query parameters object with the API key
   const params = {
     api_key: apiKey,
   }
-
+  // Make a GET request to the comments endpoint of the API
   axios
     .get(url + 'comments', { params: params })
     .then((response) => {
-      // Get comments from API response
       const comments = response.data
-
-      // Add comments to the page
-      comments
-        .sort((a, b) => b.timestamp - a.timestamp)
-        .forEach((comment) => {
-          const commentList = document.createElement('div')
-          const avatar = document.createElement('div')
-          const avatarContainer = document.createElement('div')
-          const innerAvatarEmptyDiv = document.createElement('div')
-          const commentListParagraph = document.createElement('p')
-          const commentListParagraphName = document.createElement('p')
-          const commentListParagraphDate = document.createElement('p')
-          const ticketsSeparator = document.createElement('hr')
-
-          const commentsButtons = document.createElement('div')
-          const commentButtonLike = document.createElement('button')
-          const commentButtonLikeCount = document.createElement('p')
-          const commentButtonDelete = document.createElement('button')
-
-          ticketsSeparator.classList.add('tickets__separator')
-          commentList.classList.add('comment-list')
-          avatar.classList.add('avatar')
-          avatarContainer.classList.add('avatar__container')
-          commentListParagraph.classList.add('comment-list__paragraph')
-          commentListParagraphName.classList.add(
-            'comment-list__paragraph',
-            'is--bolded'
-          )
-          commentListParagraphDate.classList.add(
-            'comment-list__paragraph',
-            'is--grey'
-          )
-          commentButtonLikeCount.classList.add('comment-list__paragraph')
-          commentButtonLike.classList.add('comment-list__button')
-          commentButtonDelete.classList.add('comment-list__button')
-
-          commentList.setAttribute('id', `comment-${comment.id}`)
-          commentButtonLike.setAttribute('data-id', `${comment.id}`)
-          commentButtonLikeCount.setAttribute('id', `count-${comment.id}`)
-
-          commentButtonLike.addEventListener(
-            'click',
-            handleLike.bind(null, comment.id)
-          )
-          commentButtonDelete.addEventListener(
-            'click',
-            handleDelete.bind(null, comment.id)
-          )
-
-          commentListParagraph.innerText = comment.comment
-          commentListParagraphName.innerText = comment.name
-          commentListParagraphDate.innerText = new Date(
-            comment.timestamp
-          ).toLocaleDateString('en-GB', {
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit',
-          })
-
-          commentButtonLikeCount.innerHTML = comment.likes
-
-          commentButtonLike.innerHTML = `
-        <img src="./assets/icons/like.png" alt="Like" class="comments__buttons--button">
-        `
-          commentButtonDelete.innerHTML = `
-        <img src="./assets/icons/delete.png" alt="Delete" class="comments__buttons--button">
-        `
-          commentsButtons.append(
-            commentButtonLike,
-            commentButtonLikeCount,
-            commentButtonDelete
-          )
-
-          innerAvatarEmptyDiv.append(
-            commentListParagraphName,
-            commentListParagraphDate
-          )
-          avatarContainer.appendChild(innerAvatarEmptyDiv)
-          avatarContainer.appendChild(commentListParagraph)
-          avatarContainer.appendChild(commentsButtons)
-
-          commentList.appendChild(avatar)
-          commentList.appendChild(avatarContainer)
-
-          document.querySelector('.comments-default').appendChild(commentList)
-          document
-            .querySelector('.comments-default')
-            .appendChild(ticketsSeparator)
+      // Extract the comments from the response data
+      comments // Sort the comments by timestamp (newest first) and add them to the webpage
+        .sort((a, b) => b.timestamp - a.timestamp) 
+        .forEach((comment) => { // For each comment, create the DOM structure and append it to the page
+          createAndAppendComment(comment);
         })
     })
-    .catch((error) => {
+    .catch((error) => { // If fetching the comments fails, log the error
       console.error('Error retrieving comments:', error)
     })
 }
 
-const submitComment = document.getElementById('submit-comment')
+const submitComment = document.getElementById('submit-comment') // Get the submit button DOM element
+submitComment.addEventListener('click', sendComment) // Attach an event listener to the submit button to handle comment submission
 
-submitComment.addEventListener('click', sendComment)
-
-function sendComment() {
+function sendComment() { // Function to send a comment to the API
   const nameValue = document.querySelector('#name').value
   const commentValue = document.querySelector('#comment').value
-
   const newComment = {
     name: nameValue,
     comment: commentValue,
   }
 
-  if (commentValue == '') {
+  if (commentValue == '') { //highlight the form in red if one of the fields is empty
     document.querySelector('#comment').style.borderColor = '#D22D2D'
     return
   } else {
@@ -167,100 +80,98 @@ function sendComment() {
   }
 
   axios
-    .post(url + `comments?api_key=${apiKey}`, newComment)
-    .then((response) => {
-      console.log(`bio-comments.js - line: 95 ->> response`, response)
-
-      const commentList = document.createElement('div')
-      const avatar = document.createElement('div')
-      const avatarContainer = document.createElement('div')
-      const innerAvatarEmptyDiv = document.createElement('div')
-      const commentListParagraph = document.createElement('p')
-      const commentListParagraphName = document.createElement('p')
-      const commentListParagraphDate = document.createElement('p')
-      const ticketsSeparator = document.createElement('hr')
-
-      const commentsButtons = document.createElement('div')
-      const commentButtonLike = document.createElement('button')
-      const commentButtonDelete = document.createElement('button')
-      const commentButtonLikeCount = document.createElement('p')
-
-      ticketsSeparator.classList.add('tickets__separator')
-      commentList.classList.add('comment-list')
-      avatar.classList.add('avatar')
-      avatarContainer.classList.add('avatar__container')
-      commentListParagraph.classList.add('comment-list__paragraph')
-      commentListParagraphName.classList.add(
-        'comment-list__paragraph',
-        'is--bolded'
-      )
-      commentListParagraphDate.classList.add(
-        'comment-list__paragraph',
-        'is--grey'
-      )
-      commentButtonLikeCount.classList.add('comment-list__paragraph')
-      commentButtonLike.classList.add('comment-list__button')
-      commentButtonDelete.classList.add('comment-list__button')
-
-      commentList.setAttribute('id', `comment-${response.data.id}`)
-      commentButtonLike.setAttribute('data-id', `${response.data.id}`)
-      commentButtonLikeCount.setAttribute('id', `count-${response.data.id}`)
-
-      commentButtonLike.addEventListener(
-        'click',
-        handleLike.bind(null, response.data.id)
-      )
-      commentButtonDelete.addEventListener(
-        'click',
-        handleDelete.bind(null, response.data.id)
-      )
-
-      commentListParagraph.innerText = response.data.comment
-      commentListParagraphName.innerText = response.data.name
-      commentListParagraphDate.innerText = new Date(
-        response.data.timestamp
-      ).toLocaleDateString('en-GB', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-      })
-
-      commentButtonLikeCount.innerHTML = response.data.likes
-      commentButtonLike.innerHTML = `
-    <img src="./assets/icons/like.png" alt="Like" class="comments__buttons--button">
-    `
-      commentButtonDelete.innerHTML = `
-    <img src="./assets/icons/delete.png" alt="Delete" class="comments__buttons--button">
-    `
-      commentsButtons.append(
-        commentButtonLike,
-        commentButtonLikeCount,
-        commentButtonDelete
-      )
-      innerAvatarEmptyDiv.append(
-        commentListParagraphName,
-        commentListParagraphDate
-      )
-      avatarContainer.appendChild(innerAvatarEmptyDiv)
-      avatarContainer.appendChild(commentListParagraph)
-      avatarContainer.appendChild(commentsButtons)
-
-      commentList.appendChild(avatar)
-      commentList.appendChild(avatarContainer)
-
-      document.querySelector('.comments-default').prepend(ticketsSeparator)
-      document.querySelector('.comments-default').prepend(commentList)
-
-      // clear form
+    .post(url + `comments?api_key=${apiKey}`, newComment) // save comment to API
+    .then((response) => {  // clearing the form after submitting a comment
+      createAndAppendComment(response.data);
       document.querySelector('#name').value = ''
       document.querySelector('#comment').value = ''
     })
 }
 
-// DIVING DEEPER
+function createAndAppendComment(commentData) {  // Function to create a comment structure and append it to the webpage
+  const commentList = document.createElement('div')
+  const avatar = document.createElement('div')
+  const avatarContainer = document.createElement('div')
+  const innerAvatarEmptyDiv = document.createElement('div')
+  const commentListParagraph = document.createElement('p')
+  const commentListParagraphName = document.createElement('p')
+  const commentListParagraphDate = document.createElement('p')
+  const ticketsSeparator = document.createElement('hr')
+  const commentsButtons = document.createElement('div')
+  const commentButtonLike = document.createElement('button')
+  const commentButtonDelete = document.createElement('button')
+  const commentButtonLikeCount = document.createElement('p')
+
+  ticketsSeparator.classList.add('tickets__separator') // add classes for elements
+  commentList.classList.add('comment-list')
+  avatar.classList.add('avatar')
+  avatarContainer.classList.add('avatar__container')
+  commentListParagraph.classList.add('comment-list__paragraph')
+  commentListParagraphName.classList.add(
+    'comment-list__paragraph',
+    'is--bolded'
+  )
+  commentListParagraphDate.classList.add(
+    'comment-list__paragraph',
+    'is--grey'
+  )
+  commentButtonLikeCount.classList.add('comment-list__paragraph')
+  commentButtonLike.classList.add('comment-list__button')
+  commentButtonDelete.classList.add('comment-list__button')
+
+  commentList.setAttribute('id', `comment-${commentData.id}`) // set id to comments
+  commentButtonLike.setAttribute('data-id', `${commentData.id}`)
+  commentButtonLikeCount.setAttribute('id', `count-${commentData.id}`)
+
+  commentButtonLike.addEventListener(
+    'click',
+    handleLike.bind(null, commentData.id)
+  )
+  commentButtonDelete.addEventListener(
+    'click',
+    handleDelete.bind(null, commentData.id)
+  )
+
+  commentListParagraph.innerText = commentData.comment
+  commentListParagraphName.innerText = commentData.name
+  commentListParagraphDate.innerText = new Date( // set a data to comments
+    commentData.timestamp
+  ).toLocaleDateString('en-GB', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  })
+
+  commentButtonLikeCount.innerHTML = commentData.likes // add icons for likes and delete
+  commentButtonLike.innerHTML = `
+<img src="./assets/icons/like.png" alt="Like" class="comments__buttons--button">
+`
+  commentButtonDelete.innerHTML = `
+<img src="./assets/icons/delete.png" alt="Delete" class="comments__buttons--button">
+`
+  commentsButtons.append( // publish comments from the API to the page
+    commentButtonLike,
+    commentButtonLikeCount,
+    commentButtonDelete
+  )
+
+  innerAvatarEmptyDiv.append(
+    commentListParagraphName,
+    commentListParagraphDate
+  )
+  avatarContainer.appendChild(innerAvatarEmptyDiv)
+  avatarContainer.appendChild(commentListParagraph)
+  avatarContainer.appendChild(commentsButtons)
+
+  commentList.appendChild(avatar)
+  commentList.appendChild(avatarContainer)
+
+  document.querySelector('.comments-default').prepend(ticketsSeparator)
+  document.querySelector('.comments-default').prepend(commentList)
+}
 
 function handleLike(id, event) {
-  //function for likes
+  // Function to handle liking a comment
   event.stopPropagation() // stop event from triggering other on click events
 
   const likeCountById = document.getElementById(`count-${id}`)
@@ -278,25 +189,25 @@ function handleLike(id, event) {
 }
 
 function handleDelete(id, event) {
-  // function for deleting comments
+  // Function to handle deleting a comment
   event.stopPropagation() // stop event from triggering other on click events
 
   const commentElement = document.getElementById(`comment-${id}`)
   const commentSeparator = commentElement.nextElementSibling
 
-  const result = confirm('You sure you want to delete this comment?')
+  const result = confirm('You sure you want to delete this comment?') // comment deletion confirmation
 
-  if (result) {
+  if (result) { // if the confirm button is pressed, then delete the comment and the separator
     axios
       .delete(url + `comments/${id}/?api_key=${apiKey}`)
       .then((response) => {
         if (response.status === 200) {
-          commentElement.remove()
+          commentElement.remove() 
           commentSeparator.remove()
         }
       })
       .catch((error) => {
-        console.error(`Delete error`, error)
+        console.error(`Delete error`, error) // console a message if status not equal to 200
       })
   }
 }
