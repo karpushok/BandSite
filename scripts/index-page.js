@@ -44,7 +44,7 @@ function getCommentsAndAppendToDom(url) {
       const comments = response.data
       // Extract the comments from the response data
       comments // Sort the comments by timestamp (newest first) and add them to the webpage
-        .sort((a, b) => b.timestamp - a.timestamp) 
+        .sort((a, b) => a.timestamp - b.timestamp) 
         .forEach((comment) => { // For each comment, create the DOM structure and append it to the page
           createAndAppendComment(comment);
         })
